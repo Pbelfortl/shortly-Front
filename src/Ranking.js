@@ -26,7 +26,8 @@ export default function Ranking () {
     return (
         <>
         <Trophy>
-            <img />
+            <ion-icon name="trophy-outline"></ion-icon>
+            Ranking
         </Trophy>
         <Rank>
             {urls.map( (url, i) => 
@@ -62,4 +63,13 @@ const Line = styled.div`
 `
 
 const Trophy = styled.div`
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    margin-top: 15px;
+    ion-icon{
+        height: 56px;
+        width: 56px;
+        color: yellow;
+    }
 `

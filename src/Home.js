@@ -20,7 +20,7 @@ export default function Home ({userInfo, setUserInfo}) {
                 setUserInfo()
                 alert("Não foi possível obter os dados. Tente logar novamente!")
             })
-    }, [refresh])
+    }, [refresh, userInfo, setUserInfo])
 
     function shortenUrl (event) {
         event.preventDefault()
@@ -44,6 +44,7 @@ export default function Home ({userInfo, setUserInfo}) {
                 console.log(ans)})
     }
 
+
     if(!urls) return ( <>
         <Form onSubmit={shortenUrl}>
             <input placeholder="Links que cabem no bolso!" onChange={e => setlink(e.target.value)}/>
@@ -59,11 +60,16 @@ export default function Home ({userInfo, setUserInfo}) {
         </Form>
         <LinksContainer>
             {urls.shortenedUrls.map((url) => 
-                <Link key={url.id}> {url.url} <span>{url.shortUrl}</span> 
+                <Link key={url.id}>
+                 <Short>{url.url} </Short>
+                 <Short onClick={() => window.open(url.url)}>{`${url.shortUrl}`}</Short> 
                  <span>Quantidade de visitantes: {url.visitCount}</span> 
                  <button onClick={()=> deleteUrl(url.id)}><ion-icon name="trash-outline"></ion-icon></button></Link>
             )}
         </LinksContainer>
+        <Footer>
+            Para enviar um link insira o código encurtado em: <strong>https://shortly-rt8v.onrender.com/urls/open/[CÓDIGO]</strong>
+        </Footer>
         </>
     )
 }
@@ -95,10 +101,13 @@ const Form = styled.form`
 `
 
 const LinksContainer = styled.div`
+    height: 300px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-top: 20px;
+    overflow-y: scroll;
 `
 const Link = styled.div`
     font-family: 'Lexend Deca', sans-serif;
@@ -128,4 +137,13 @@ const Link = styled.div`
         width: 22px;
         color: red;
     }
+`
+
+const Short = styled.div`
+    max-width: 300px;
+    cursor: pointer;
+    overflow-x: hidden;
+`
+
+const Footer = styled.footer`
 `
