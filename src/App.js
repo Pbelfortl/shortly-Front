@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Ranking from "./Ranking";
+import TopBar from "./TopBar";
+import { GlobalStyle } from "./GlobalStyles.js";
+import { useState } from "react";
+import Home from "./Home";
+import Login from "./Login";
+import Signup from "./Signup";
 
 function App() {
+
+  const [userInfo, setUserInfo] = useState()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <GlobalStyle/>
+      <TopBar userInfo={userInfo} setUserInfo={setUserInfo} />
+      <Routes>
+        <Route path="/" element={<Ranking/>} />
+        <Route path="/home" element={<Home userInfo={userInfo} setUserInfo={setUserInfo}/>} />
+        <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />
+        <Route path="/signup" element={<Signup/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
